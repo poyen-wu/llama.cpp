@@ -5,7 +5,10 @@
 		ChatFormActionsAdd,
 		ChatFormActionModels,
 		ChatFormActionRecord,
-		ChatFormActionSubmit
+ChatFormActionSubmit,
+		ChatFormActionWebSearch,
+		ModelsSelectorDropdown,
+		ModelsSelectorSheet
 	} from '$lib/components/app';
 	import { FileTypeCategory } from '$lib/enums';
 	import { mcpStore } from '$lib/stores/mcp.svelte';
@@ -103,6 +106,7 @@
 				{onMcpResourcesClick}
 				onMcpSettingsClick={() => goto(ROUTES.MCP_SERVERS)}
 			/>
+<ChatFormActionWebSearch {disabled} />
 		</div>
 	{/if}
 
