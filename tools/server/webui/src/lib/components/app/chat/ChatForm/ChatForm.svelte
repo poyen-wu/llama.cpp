@@ -303,6 +303,7 @@
 				if (!canSubmit || disabled || hasLoadingAttachments) return;
 
 				onSubmit?.();
+				textareaRef?.clearHistory();
 			}
 		}
 	}
@@ -556,6 +557,7 @@
 		e.preventDefault();
 		if (!canSubmit || disabled || hasLoadingAttachments) return;
 		onSubmit?.();
+		textareaRef?.clearHistory();
 	}}
 >
 	<ChatFormPromptPicker
