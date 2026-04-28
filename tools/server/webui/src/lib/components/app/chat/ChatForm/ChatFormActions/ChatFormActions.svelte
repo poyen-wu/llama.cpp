@@ -6,6 +6,7 @@
 		ChatFormActionAttachmentsSheet,
 		ChatFormActionRecord,
 		ChatFormActionSubmit,
+		ChatFormActionWebSearch,
 		ModelsSelectorDropdown,
 		ModelsSelectorSheet
 	} from '$lib/components/app';
@@ -214,6 +215,8 @@
 				onMcpSettingsClick={() => goto('#/settings/mcp')}
 			/>
 		{/if}
+
+		<ChatFormActionWebSearch {disabled} />
 	</div>
 
 	<div class="ml-auto flex items-center gap-2">

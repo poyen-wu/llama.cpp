@@ -33,6 +33,8 @@ export const DEFAULT_MCP_CONFIG = {
 
 export const MCP_SERVER_ID_PREFIX = 'LlamaCpp-WebUI-MCP-Server';
 
+export const MCP_WEB_SEARCH_SERVER_ID = 'LlamaCpp-WebUI-MCP-Server-Web-Search';
+
 export const MCP_RECONNECT_INITIAL_DELAY = 1000;
 export const MCP_RECONNECT_BACKOFF_MULTIPLIER = 2;
 export const MCP_RECONNECT_MAX_DELAY = 30000;
