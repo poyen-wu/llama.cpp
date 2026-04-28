@@ -245,6 +245,7 @@
 				if (!canSubmit || disabled || hasLoadingAttachments) return;
 
 				onSubmit?.();
+				textareaRef?.clearHistory();
 			}
 		}
 	}
@@ -475,6 +476,7 @@
 		if (!canSubmit || disabled || hasLoadingAttachments) return;
 
 		onSubmit?.();
+		textareaRef?.clearHistory();
 	}}
 >
 	<ChatFormPickers
