@@ -241,6 +241,13 @@ export { default as ChatFormActionAddToolsSubmenu } from './ChatForm/ChatFormAct
 export { default as ChatFormActionAddMcpServersSubmenu } from './ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionAddMcpServersSubmenu.svelte';
 
 /**
+ * Toggle button for web search via MCP. Only visible when an MCP server with
+ * the reserved ID "LlamaCpp-WebUI-MCP-Server-Web-Search" is configured and
+ * enabled. Toggling it enables/disables that server for the current chat.
+ */
+export { default as ChatFormActionWebSearch } from './ChatForm/ChatFormActions/ChatFormActionWebSearch.svelte';
+
+/**
  * Hidden file input element for programmatic file selection.
  */
 export { default as ChatFormFileInputInvisible } from './ChatForm/ChatFormFileInputInvisible.svelte';
