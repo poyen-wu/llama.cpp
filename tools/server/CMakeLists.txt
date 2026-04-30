@@ -48,6 +48,8 @@ if (LLAMA_BUILD_WEBUI)
         bundle.js
         bundle.css
         loading.html
+        manifest.json
+        sw.js
     )
 
     foreach(asset ${PUBLIC_ASSETS})
