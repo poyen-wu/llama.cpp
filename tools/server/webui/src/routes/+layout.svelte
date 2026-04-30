@@ -129,6 +129,10 @@
 
 	onMount(() => {
 		mounted = true;
+
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register(`${base}/sw.js`).catch(() => {});
+		}
 	});
 
 	$effect(() => {
