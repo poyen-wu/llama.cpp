@@ -14,6 +14,8 @@
 #include "bundle.js.hpp"
 #include "bundle.css.hpp"
 #include "loading.html.hpp"
+#include "manifest.json.hpp"
+#include "sw.js.hpp"
 #endif
 
 //
@@ -147,6 +149,8 @@ bool server_http_context::init(const common_params & params) {
             "/index.html",
             "/bundle.js",
             "/bundle.css",
+            "/manifest.json",
+            "/sw.js",
         };
 
         // If API key is not set, skip validation
@@ -290,6 +294,14 @@ bool server_http_context::init(const common_params & params) {
             });
             srv->Get(params.api_prefix + "/bundle.css", [](const httplib::Request & /*req*/, httplib::Response & res) {
                 res.set_content(reinterpret_cast<const char*>(bundle_css), bundle_css_len, "text/css; charset=utf-8");
+                return false;
+            });
+            srv->Get(params.api_prefix + "/manifest.json", [](const httplib::Request & /*req*/, httplib::Response & res) {
+                res.set_content(reinterpret_cast<const char*>(manifest_json), manifest_json_len, "application/manifest+json");
+                return false;
+            });
+            srv->Get(params.api_prefix + "/sw.js", [](const httplib::Request & /*req*/, httplib::Response & res) {
+                res.set_content(reinterpret_cast<const char*>(sw_js), sw_js_len, "application/javascript; charset=utf-8");
                 return false;
             });
 #endif

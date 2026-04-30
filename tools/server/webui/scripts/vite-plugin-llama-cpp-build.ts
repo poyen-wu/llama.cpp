@@ -24,15 +24,30 @@ export function llamaCppBuildPlugin(): Plugin {
 
 					let content = readFileSync(indexPath, 'utf-8');
 
-					const faviconPath = resolve('static/favicon.svg');
+					const faviconPngPath = resolve('static/icons/favicon-icon.png');
+					if (existsSync(faviconPngPath)) {
+						const faviconData = readFileSync(faviconPngPath);
+						const faviconBase64 = faviconData.toString('base64');
+						const faviconDataUrl = `data:image/png;base64,${faviconBase64}`;
+						content = content.replace(/href="[^"]*favicon-icon\.png"/g, `href="${faviconDataUrl}"`);
+						console.log('✓ Inlined favicon-icon.png as base64 data URL');
+					}
 
-					if (existsSync(faviconPath)) {
-						const faviconContent = readFileSync(faviconPath, 'utf-8');
+					const appleTouchIconPath = resolve('static/icons/apple-touch-icon.png');
+					if (existsSync(appleTouchIconPath)) {
+						const appleTouchData = readFileSync(appleTouchIconPath);
+						const appleTouchBase64 = appleTouchData.toString('base64');
+						const appleTouchDataUrl = `data:image/png;base64,${appleTouchBase64}`;
+						content = content.replace(/href="[^"]*apple-touch-icon\.png"/g, `href="${appleTouchDataUrl}"`);
+						console.log('✓ Inlined apple-touch-icon.png as base64 data URL');
+					}
+
+					const faviconSvgPath = resolve('static/favicon.svg');
+					if (existsSync(faviconSvgPath)) {
+						const faviconContent = readFileSync(faviconSvgPath, 'utf-8');
 						const faviconBase64 = Buffer.from(faviconContent).toString('base64');
 						const faviconDataUrl = `data:image/svg+xml;base64,${faviconBase64}`;
-
 						content = content.replace(/href="[^"]*favicon\.svg"/g, `href="${faviconDataUrl}"`);
-
 						console.log('✓ Inlined favicon.svg as base64 data URL');
 					}
 
@@ -47,6 +62,23 @@ export function llamaCppBuildPlugin(): Plugin {
 
 					writeFileSync(indexPath, content, 'utf-8');
 					console.log('✓ Updated index.html');
+
+					const manifestPath = resolve('../public/manifest.json');
+					if (existsSync(manifestPath)) {
+						let manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'));
+
+						for (const icon of manifest.icons) {
+							const iconPath = resolve('../public', icon.src);
+							if (existsSync(iconPath)) {
+								const iconData = readFileSync(iconPath);
+								const mimeType = icon.type || 'image/png';
+								icon.src = `data:${mimeType};base64,${iconData.toString('base64')}`;
+							}
+						}
+
+						writeFileSync(manifestPath, JSON.stringify(manifest, null, '\t'));
+						console.log('✓ Inlined PWA icons into manifest.json');
+					}
 
 					// Copy bundle.*.js -> ../public/bundle.js
 					const immutableDir = resolve('../public/_app/immutable');
